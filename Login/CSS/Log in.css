@@ -1,0 +1,100 @@
+/* All */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: black;
+}
+
+/* the header */
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background: linear-gradient(blue,black);
+}
+
+.head ul {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    list-style: none;
+} 
+
+.head ul li {
+    margin-left: 20px;
+}
+
+.head ul li a {
+    text-decoration: none;
+    font-size: large;
+}
+
+
+/* create style form */
+
+.FormLogIn {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    margin: auto;
+    margin-top: 50px;
+    height: 50vh;
+    border: 1.5px solid white;
+    border-radius: 12px;
+}
+
+.FormLogIn input {
+    width: 90%;
+    height: 30px;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    text-align: center;
+}
+
+.FormLogIn input::placeholder {
+    color: white;
+    text-align: center;
+    outline: none;
+}
+
+.FormLogIn button {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid blue;
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media (max-width: 1300px) {
+    .FormSignIn {
+        width: 25%;
+    }
+}
+@media (max-width: 1024px) {
+    .FormLogIn {
+        margin-top: 100px;
+        width: 50%;
+    }
+}
+@media (max-width: 812px) {
+    .FormLogIn {
+        width: 60%;
+    }
+}
+@media (max-width: 567px) {
+    .FormLogIn {
+        width: 80%;
+    }
+}

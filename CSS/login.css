@@ -1,0 +1,111 @@
+/* All */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: black;
+}
+
+/* the header */
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background: linear-gradient(blue,black);
+}
+
+.head .logo {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.head ul {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+} 
+
+.head ul li {
+    margin-left: 20px;
+}
+
+.head ul li a {
+    text-decoration: none;
+    font-size: large;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 200px;
+}
+
+.form a {
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    margin-top: 30px;
+    padding: 20px 0;
+    border-radius: 12px;
+    width: 30%;
+    text-align: center;
+}
+
+@media (max-width : 1300px) {
+    .form {
+        width: 100%;
+    }
+
+    .form a {
+        width: 30%;
+        padding: 20px 0;
+        text-align: center;
+    }
+}
+@media (max-width : 812px) {
+    .form {
+        width: 100%;
+    }
+
+    .form a {
+        width: 50%;
+        padding: 20px 0;
+        text-align: center;
+    }
+}
+@media (max-width : 786px) {
+    .form {
+        width: 100%;
+    }
+
+    .form a {
+        width: 60%;
+        padding: 20px 0;
+        text-align: center;
+    }
+}
+@media (max-width : 576px) {
+    .form {
+        width: 100%;
+    }
+
+    .form a {
+        width: 80%;
+        padding: 20px 0;
+        text-align: center;
+    }
+}

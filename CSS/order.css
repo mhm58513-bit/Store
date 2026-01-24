@@ -1,0 +1,123 @@
+/* All */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: black;
+}
+
+/* the header */
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background: linear-gradient(blue,black);
+}
+
+.head ul {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    list-style: none;
+} 
+
+.head ul li {
+    margin-left: 20px;
+}
+
+.head ul li a {
+    text-decoration: none;
+    font-size: large;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.items .card {
+    position: relative;
+    border: 1px solid white;
+    height: 480px;
+    width: 300px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.items .card img {
+    height: 40%;
+    width: 50%;
+    margin: auto;
+    position: relative;
+    left: 25%;
+    margin: 20px 0;
+}
+
+.items .card h2,
+p,
+h3 {
+    text-align: center;
+    margin: 10px auto;
+    margin: 5px;
+}
+
+
+@media (max-width: 1300px) {
+    .items {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .items {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 912px) {
+    .items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        padding-left: 5%;
+    }
+}
+
+@media (max-width: 567px) {
+    .items {
+       display: flex;
+       justify-content: center;
+       flex-wrap: wrap;
+    }
+}
