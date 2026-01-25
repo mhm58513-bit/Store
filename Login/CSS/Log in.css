@@ -7,9 +7,7 @@
     overflow-x: hidden;
 }
 
-body {
-    background-color: black;
-}
+
 
 /* the header */
 .head {
@@ -17,7 +15,12 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
-    background: linear-gradient(blue,black);
+    background: #0f172a;
+    color: orange;
+}
+
+.head .logo {
+    color: orange;
 }
 
 .head ul {
@@ -29,17 +32,23 @@ body {
 
 .head ul li {
     margin-left: 20px;
+    padding: 3px 7px;
 }
 
 .head ul li a {
     text-decoration: none;
     font-size: large;
+    color: white;
 }
 
-
+.head ul li:hover {
+    background-color: orangered;
+    padding: 3px 7px;
+}
 /* create style form */
 
 .FormLogIn {
+    position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -48,7 +57,8 @@ body {
     margin: auto;
     margin-top: 50px;
     height: 50vh;
-    border: 1.5px solid white;
+    border: 1.5px solid #0f172a;
+    color: #0f172a;
     border-radius: 12px;
 }
 
@@ -58,23 +68,29 @@ body {
     margin-bottom: 20px;
     outline: none;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 2px solid orangered;
+    color: #0f172a;
     background-color: transparent;
     text-align: center;
+    font-size: large;
 }
 
 .FormLogIn input::placeholder {
-    color: white;
+    color: #0f172a;
     text-align: center;
     outline: none;
+    font-size: large;
 }
 
 .FormLogIn button {
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 1px solid blue;
+    padding: 10px 100%;
+    background-color: orangered;
+    color: white;
     text-align: center;
     margin-top: 10px;
+    font-size: large;
+    position: absolute;
+    bottom: 0;
 }
 
 @media (max-width: 1300px) {
@@ -96,5 +112,27 @@ body {
 @media (max-width: 567px) {
     .FormLogIn {
         width: 80%;
+    }
+    .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    
+}
+
+ .head ul li {
+    padding: 3px 3px;
+}
+
+.head ul li:hover {
+    background-color: orangered;
+    padding: 3px 3px;
+}
+    .head .logo{
+        font-size: 30px;
+    }
+    .head ul li a {
+        font-size: medium;
     }
 }

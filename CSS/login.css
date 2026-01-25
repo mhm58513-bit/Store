@@ -7,9 +7,6 @@
     overflow-x: hidden;
 }
 
-body {
-    background-color: black;
-}
 
 /* the header */
 .head {
@@ -17,33 +14,34 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
-    background: linear-gradient(blue,black);
+    background: #0f172a;
 }
 
 .head .logo {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: orange;
 }
 
 .head ul {
-    padding: 0;
-    margin: 0;
-    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 5px;
     list-style: none;
-} 
+}
 
 .head ul li {
     margin-left: 20px;
+    padding: 3px 7px;
 }
 
 .head ul li a {
     text-decoration: none;
     font-size: large;
+    color: white;
+}
+
+.head ul li:hover {
+    background-color: orangered;
+    padding: 3px 7px;
 }
 
 .form {
@@ -56,13 +54,15 @@ body {
 
 .form a {
     text-decoration: none;
-    background-color: blue;
+    background-color: orangered;
     color: white;
     margin-top: 30px;
     padding: 20px 0;
     border-radius: 12px;
     width: 30%;
     text-align: center;
+    font-size: large;
+    border: none;
 }
 
 @media (max-width : 1300px) {
@@ -76,6 +76,7 @@ body {
         text-align: center;
     }
 }
+
 @media (max-width : 812px) {
     .form {
         width: 100%;
@@ -87,6 +88,7 @@ body {
         text-align: center;
     }
 }
+
 @media (max-width : 786px) {
     .form {
         width: 100%;
@@ -98,6 +100,7 @@ body {
         text-align: center;
     }
 }
+
 @media (max-width : 576px) {
     .form {
         width: 100%;
@@ -107,5 +110,30 @@ body {
         width: 80%;
         padding: 20px 0;
         text-align: center;
+    }
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        color: orangered;
+    }
+
+    .head ul li {
+        padding: 3px 3px;
+    }
+
+    .head ul li:hover {
+        background-color: orangered;
+        padding: 3px 3px;
+    }
+
+    .head .logo {
+        font-size: 30px;
+    }
+
+    .head ul li a {
+        font-size: medium;
     }
 }

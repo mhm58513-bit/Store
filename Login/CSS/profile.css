@@ -7,17 +7,18 @@
     overflow-x: hidden;
 }
 
-body {
-    background-color: black;
-}
-
 /* the header */
 .head {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
-    background: linear-gradient(blue,black);
+    background: #0f172a;
+    color: orange;
+}
+
+.head .logo {
+    color: orange;
 }
 
 .head ul {
@@ -25,17 +26,25 @@ body {
     justify-content: center;
     margin-top: 5px;
     list-style: none;
-} 
+}
 
 .head ul li {
     margin-left: 20px;
+    padding: 3px 7px;
 }
 
 .head ul li a {
     text-decoration: none;
     font-size: large;
+    color: white;
 }
 
+.head ul li:hover {
+    background-color: orangered;
+    padding: 3px 7px;
+}
+
+/* style massage customer */
 
 .Customer {
     padding-top: 20px;
@@ -45,6 +54,11 @@ body {
     align-items: center;
     margin: auto;
     width: 50%;
+    color: #0f172a;
+}
+
+#massage {
+    color: #0f172a;
 }
 
 #signout {
@@ -52,9 +66,11 @@ body {
     width: 20%;
     text-align: center;
     padding: 10px 0;
-    background: linear-gradient(red, red,red,white);
+    background: orangered;
     color: white;
     font-size: large;
+    border: none;
+    border-radius: 10px;
 }
 
 @media (max-width: 1300px) {
@@ -63,44 +79,76 @@ body {
         width: 80%;
         text-align: center;
     }
+
     #signout {
         width: 15%;
     }
 }
+
 @media (max-width: 1080px) {
     .Customer {
         margin-top: 5%;
         width: 80%;
         text-align: center;
     }
+
     #signout {
         width: 20%;
     }
 }
+
 @media (max-width: 820px) {
     .Customer {
         margin-top: 5%;
         width: 100%;
         text-align: center;
     }
+
     #signout {
         width: 20%;
     }
 }
+
 @media (max-width: 768px) {
     .Customer {
         margin-top: 5%;
         width: 80%;
         text-align: center;
     }
+
     #signout {
         width: 30%;
     }
 }
+
 @media (max-width: 576px) {
     .Customer {
         margin-top: 5%;
         width: 100%;
+        font-size: 13px;
         text-align: center;
+    }
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .head .logo {
+        font-size: 30px;
+    }
+    .head ul li {
+    padding: 3px 3px;
+}
+
+.head ul li:hover {
+    background-color: orangered;
+    padding: 3px 3px;
+}
+
+    .head ul li a {
+        font-size: medium;
     }
 }
