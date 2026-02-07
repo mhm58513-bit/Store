@@ -1,7 +1,13 @@
+
 //Page Home
+
+
+// Get Data From API
 
 let btnBuyNow = document.getElementById("btn")
 let cards = document.querySelector(".items")
+
+let Products = []
 
 function Api() {
     let xhr = new XMLHttpRequest()
@@ -10,28 +16,9 @@ function Api() {
 
     xhr.addEventListener("readystatechange", function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let Products = JSON.parse(this.responseText)
-            cards.innerHTML = "";
-            Products.forEach(Product => {
-                cards.innerHTML += `
-            <div class="card">
-                <img src="${Product.image}" alt="${Product.title}" />
-                <h2>${Product.title.substring(0, 20)}</h2>
-                <p>${Product.description.substring(0, 50)}</p>
-                <h3>${Product.price}</h3>
-                <button 
- class="btnbuy"
- data-id="${Product.id}"
- data-img="${Product.image}"
- data-title="${Product.title}"
- data-des="${Product.description}"
- data-price="${Product.price}">
- Buy Now
-</button>
-
-            </div>
-            `
-            })
+            Products = JSON.parse(this.responseText)
+        } else {
+            console.log("EROLLLLLLL")
         }
     })
 
@@ -41,15 +28,49 @@ function Api() {
 Api()
 
 
+// display UI Products
+
+
+function DisplayUI(Products) {
+    cards.innerHTML = "";
+    Products.forEach(Product => {
+        cards.innerHTML += `
+            <div class="card">
+                <img src="${Product.image}" alt="${Product.title}" />
+                <h2>${Product.title.substring(0, 20)}</h2>
+                <p>${Product.description.substring(0, 50)}</p>
+                <h3>${Product.price}</h3>
+                <button 
+                    class="btnbuy"
+                    data-id="${Product.id}"
+                    data-img="${Product.image}"
+                    data-title="${Product.title}"
+                    data-des="${Product.description}"
+                    data-price="${Product.price}">
+                    Buy Now
+                </button>
+            </div>
+            `
+    })
+}
+
+// user logged
 
 let Alog = document.getElementById("Alog")
 let user = JSON.parse(localStorage.getItem("session"))
+let CountShopIcon = document.getElementById("count")
+let Order = JSON.parse(localStorage.getItem("Order"))
 
 function User() {
     if (user) {
         Alog.innerHTML = "Hi " + user.name
+
+        CountShopIcon.textContent = Order.length
+
         Alog.href = "./Login/profile.html"
     } else {
+        CountShopIcon.textContent = 0
+
         Alog.href = "./Login.html"
     }
 }
@@ -57,7 +78,7 @@ function User() {
 User()
 
 
-
+// Order Products
 
 
 setTimeout(() => {
@@ -78,11 +99,30 @@ setTimeout(() => {
                 price: btn.dataset.price,
             }
 
-           Products.push(newpro)
+            Products.push(newpro)
 
             localStorage.setItem("product", JSON.stringify(Products))
+            setTimeout(() => {
+                location.reload()
+            }, 0);
         })
 
     })
 }
     , 1000)
+
+
+// Search and Filter Products
+
+let search = document.getElementById("Search")
+
+search.addEventListener("input", (e) => {
+    let ValueSearch = e.target.value.toLowerCase()
+    let filteredProducts = Products.filter((product) => {
+        product.title.toLowerCase().includes(ValueSearch)
+    })
+
+    DisplayUI(filteredProducts)
+    console.log(ValueSearch)
+})
+
