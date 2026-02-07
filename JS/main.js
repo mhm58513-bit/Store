@@ -17,8 +17,7 @@ function Api() {
     xhr.addEventListener("readystatechange", function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             Products = JSON.parse(this.responseText)
-        } else {
-            console.log("EROLLLLLLL")
+            DisplayUI(Products)
         }
     })
 
@@ -32,7 +31,9 @@ Api()
 
 
 function DisplayUI(Products) {
-    cards.innerHTML = "";
+
+    cards.innerHTML = ""
+
     Products.forEach(Product => {
         cards.innerHTML += `
             <div class="card">
@@ -53,6 +54,8 @@ function DisplayUI(Products) {
             `
     })
 }
+
+
 
 // user logged
 
