@@ -105,9 +105,7 @@ setTimeout(() => {
             Products.push(newpro)
 
             localStorage.setItem("product", JSON.stringify(Products))
-            setTimeout(() => {
-                location.reload()
-            }, 0);
+            
         })
 
     })
@@ -122,10 +120,11 @@ let search = document.getElementById("Search")
 search.addEventListener("input", (e) => {
     let ValueSearch = e.target.value.toLowerCase()
     let filteredProducts = Products.filter((product) => {
-        product.title.toLowerCase().includes(ValueSearch)
+       return product.title.toLowerCase().includes(ValueSearch)
     })
 
     DisplayUI(filteredProducts)
     console.log(ValueSearch)
 })
+
 
