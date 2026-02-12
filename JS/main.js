@@ -91,7 +91,7 @@ setTimeout(() => {
         btn.addEventListener("click", () => {
 
 
-            let Products = JSON.parse(localStorage.getItem("product") || "[]")
+            let ProductsStorage = JSON.parse(localStorage.getItem("product") || "[]")
 
             let newpro = {
                 idcust: user?.id,
@@ -102,9 +102,9 @@ setTimeout(() => {
                 price: btn.dataset.price,
             }
 
-            Products.push(newpro)
+            ProductsStorage.push(newpro)
 
-            localStorage.setItem("product", JSON.stringify(Products))
+            localStorage.setItem("product", JSON.stringify(ProductsStorage))
             
         })
 
@@ -126,6 +126,7 @@ search.addEventListener("input", (e) => {
     DisplayUI(filteredProducts)
     console.log(ValueSearch)
 })
+
 
 
 
