@@ -105,7 +105,7 @@ setTimeout(() => {
             ProductsStorage.push(newpro)
 
             localStorage.setItem("product", JSON.stringify(ProductsStorage))
-            CountShopIcon.textContent = Order.length+1
+            CountShopIcon.textContent++
         })
 
     })
@@ -126,6 +126,7 @@ search.addEventListener("input", (e) => {
     DisplayUI(filteredProducts)
     console.log(ValueSearch)
 })
+
 
 
 
