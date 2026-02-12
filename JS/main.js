@@ -68,7 +68,7 @@ function User() {
     if (user) {
         Alog.innerHTML = "Hi " + user.name
 
-        CountShopIcon.textContent = Order.length
+        //CountShopIcon.textContent = Order.length
 
         Alog.href = "./Login/profile.html"
     } else {
@@ -126,5 +126,6 @@ search.addEventListener("input", (e) => {
     DisplayUI(filteredProducts)
     console.log(ValueSearch)
 })
+
 
 
