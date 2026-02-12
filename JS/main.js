@@ -90,7 +90,7 @@ setTimeout(() => {
     btnbuy.forEach((btn) => {
         btn.addEventListener("click", () => {
 
-
+            CountShopIcon.textContent = number(Order.length++)
             let ProductsStorage = JSON.parse(localStorage.getItem("product") || "[]")
 
             let newpro = {
@@ -105,7 +105,7 @@ setTimeout(() => {
             ProductsStorage.push(newpro)
 
             localStorage.setItem("product", JSON.stringify(ProductsStorage))
-            CountShopIcon.textContent++
+    
         })
 
     })
@@ -126,6 +126,7 @@ search.addEventListener("input", (e) => {
     DisplayUI(filteredProducts)
     console.log(ValueSearch)
 })
+
 
 
 
