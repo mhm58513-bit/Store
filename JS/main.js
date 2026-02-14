@@ -63,12 +63,13 @@ let Alog = document.getElementById("Alog")
 let user = JSON.parse(localStorage.getItem("session"))
 let CountShopIcon = document.getElementById("count")
 let Order = JSON.parse(localStorage.getItem("Order"))
+CountShopIcon.textContent = 0
 
 function User() {
     if (user) {
         Alog.innerHTML = "Hi " + user.name
 
-        CountShopIcon.textContent = Order.length 
+        CountShopIcon.textContent = Order.length
 
         Alog.href = "./Login/profile.html"
     } else {
@@ -90,8 +91,8 @@ setTimeout(() => {
     btnbuy.forEach((btn) => {
         btn.addEventListener("click", () => {
 
-            CountShopIcon.textContent = number(Order.length++)
-            let ProductsStorage = JSON.parse(localStorage.getItem("product") || "[]")
+
+            let Products = JSON.parse(localStorage.getItem("product") || "[]")
 
             let newpro = {
                 idcust: user?.id,
@@ -102,10 +103,11 @@ setTimeout(() => {
                 price: btn.dataset.price,
             }
 
-            ProductsStorage.push(newpro)
+            Products.push(newpro)
 
-            localStorage.setItem("product", JSON.stringify(ProductsStorage))
-    
+            localStorage.setItem("product", JSON.stringify(Products))
+            
+            CountShopIcon.textContent = Number(Order.length++)
         })
 
     })
@@ -119,19 +121,11 @@ let search = document.getElementById("Search")
 
 search.addEventListener("input", (e) => {
     let ValueSearch = e.target.value.toLowerCase()
-    let filteredProducts = Products.filter((product) => {
-       return product.title.toLowerCase().includes(ValueSearch)
-    })
-
-    DisplayUI(filteredProducts)
     console.log(ValueSearch)
+    let filteredProducts = Products.filter((Product) => {
+        return Product.title.toLowerCase().includes(ValueSearch)
+    })
+    console.log("filter :"+filteredProducts)
+    DisplayUI(filteredProducts)
 })
-
-
-
-
-
-
-
-
 

@@ -1,7 +1,7 @@
 let Alog = document.getElementById("Alog")
 let cards = document.querySelector(".items")
 
-cards.innerHTML = ""
+
 let user = JSON.parse(localStorage.getItem("session"))
 
 function User() {
@@ -18,22 +18,27 @@ function User() {
 
 User()
 
+let Order = []
 
 function getProduct() {
     let Products = JSON.parse(localStorage.getItem("product"))
-    //let Order = JSON.parse(localStorage.getItem("Order") || "[]")
-    let Order = []
+
     let orderuser = Products.filter((Product) => {
         return Product.idcust === user.id
     })
 
-
-
-   
-
     Order.push(...orderuser)
+
     localStorage.setItem("Order", JSON.stringify(Order))
-     Order.forEach((item) => {
+}
+
+getProduct()
+
+function DisplayUI(Order) {
+
+    cards.innerHTML = ""
+
+    Order.forEach((item) => {
         cards.innerHTML += `
             <div class="card">
                 <img src="${item.img}" alt="${item.title}" />
@@ -44,22 +49,28 @@ function getProduct() {
             </div>
             `
     })
-
 }
-getProduct()
 
-
+DisplayUI(Order)
 
 let RemoveOrder = document.querySelectorAll(".order")
+let Container = document.querySelector(".card")
 
-function remove(){
-    RemoveOrder.forEach((btn)=>{
-    btn.addEventListener("click",(e)=>{
-        e.preventDefault
-        let IDorder = localStorage.getItem("Order")
-        localStorage.removeItem("btn.dataset.orders")
-    })
+Container.addEventListener("click",(e)=>{
+    e.preventDefault()
+    if (e.target.classList.contains("order")) {
+        console.log("dfddsafaf")
+        let IDorder = JSON.parse(localStorage.getItem("Order"))
+
+            let OrdersRemoved = IDorder.filter((OrderRemoved)=>{
+                return  OrderRemoved.idOrder !== Number(e.target.dataset.orders)
+            })
+
+            console.log(OrdersRemoved)
+
+            localStorage.setItem("Order", JSON.stringify(OrdersRemoved))
+
+            DisplayUI(OrdersRemoved)
+    }
+    
 })
-}
-
-remove()
