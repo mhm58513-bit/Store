@@ -53,10 +53,8 @@ function DisplayUI(Products) {
             </div>
             `
     })
+    clicked(ProductsLS)
 }
-
-clicked()
-
 
 
 // user logged
@@ -89,8 +87,8 @@ User()
 
 // Order Products
 
-
-function clicked() {
+let ProductsLS = JSON.parse(localStorage.getItem("product") || "[]")
+function clicked(Products) {
     setTimeout(() => {
     let btnbuy = document.querySelectorAll(".btnbuy")
 
@@ -98,7 +96,7 @@ function clicked() {
         btn.addEventListener("click", () => {
 
 
-            Products = JSON.parse(localStorage.getItem("product") || "[]")
+            
 
             let newpro = {
                 idcust: user?.id,
@@ -123,9 +121,6 @@ function clicked() {
 
 
 
-
-
-
 // Search and Filter Products
 
 let search = document.getElementById("Search")
@@ -137,6 +132,7 @@ search.addEventListener("input", (e) => {
         return Product.title.toLowerCase().includes(ValueSearch)
     })
     console.log("filter :"+filteredProducts)
+    
     DisplayUI(filteredProducts)
 })
 

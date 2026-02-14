@@ -1,3 +1,6 @@
+//pade orders
+// get logged in
+
 let Alog = document.getElementById("Alog")
 let cards = document.querySelector(".items")
 
@@ -20,9 +23,11 @@ function User() {
 User()
 
 
+// Get orders
+
+let Products = JSON.parse(localStorage.getItem("product") || "[}")
 
 function getProduct() {
-    let Products = JSON.parse(localStorage.getItem("product"))
 
     let orderuser = Products.filter((Product) => {
         return Product.idcust === user.id
@@ -34,6 +39,8 @@ function getProduct() {
 }
 
 getProduct()
+
+// Create Display UI
 
 function DisplayUI(Order) {
 
@@ -55,8 +62,8 @@ function DisplayUI(Order) {
 DisplayUI(Order)
 
 
-//let Container = document.querySelectorAll(".card")
-//console.log(Container)
+// Remove order
+
 cards.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("order")) {
