@@ -1,6 +1,7 @@
 let Alog = document.getElementById("Alog")
 let cards = document.querySelector(".items")
 
+let Order = JSON.parse(localStorage.getItem("Order") || "[]")
 
 let user = JSON.parse(localStorage.getItem("session"))
 
@@ -18,7 +19,7 @@ function User() {
 
 User()
 
-let Order = []
+
 
 function getProduct() {
     let Products = JSON.parse(localStorage.getItem("product"))
@@ -53,24 +54,26 @@ function DisplayUI(Order) {
 
 DisplayUI(Order)
 
-let RemoveOrder = document.querySelectorAll(".order")
-let Container = document.querySelector(".card")
 
-Container.addEventListener("click",(e)=>{
-    e.preventDefault()
+//let Container = document.querySelectorAll(".card")
+//console.log(Container)
+cards.addEventListener("click", (e) => {
+
     if (e.target.classList.contains("order")) {
         console.log("dfddsafaf")
         let IDorder = JSON.parse(localStorage.getItem("Order"))
+        let Products = JSON.parse(localStorage.getItem("product"))
 
-            let OrdersRemoved = IDorder.filter((OrderRemoved)=>{
-                return  OrderRemoved.idOrder !== Number(e.target.dataset.orders)
-            })
+        let OrdersRemoved = IDorder.filter((OrderRemoved) => {
+            return Number(OrderRemoved.idOrder) !== Number(e.target.dataset.orders) 
+        })
 
-            console.log(OrdersRemoved)
+        console.log(OrdersRemoved)
+        DisplayUI(OrdersRemoved)
+        localStorage.setItem("Order", JSON.stringify(OrdersRemoved))
+        localStorage.setItem("product", JSON.stringify(OrdersRemoved))
 
-            localStorage.setItem("Order", JSON.stringify(OrdersRemoved))
 
-            DisplayUI(OrdersRemoved)
     }
-    
+
 })

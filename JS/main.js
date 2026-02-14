@@ -55,6 +55,8 @@ function DisplayUI(Products) {
     })
 }
 
+clicked()
+
 
 
 // user logged
@@ -63,13 +65,16 @@ let Alog = document.getElementById("Alog")
 let user = JSON.parse(localStorage.getItem("session"))
 let CountShopIcon = document.getElementById("count")
 let Order = JSON.parse(localStorage.getItem("Order"))
-CountShopIcon.textContent = 0
 
 function User() {
     if (user) {
         Alog.innerHTML = "Hi " + user.name
 
-        CountShopIcon.textContent = Order.length
+        if (Order) {
+            CountShopIcon.textContent = Order.length++
+        } else {
+            CountShopIcon.textContent = 0
+        }
 
         Alog.href = "./Login/profile.html"
     } else {
@@ -85,14 +90,15 @@ User()
 // Order Products
 
 
-setTimeout(() => {
+function clicked() {
+    setTimeout(() => {
     let btnbuy = document.querySelectorAll(".btnbuy")
 
     btnbuy.forEach((btn) => {
         btn.addEventListener("click", () => {
 
 
-            let Products = JSON.parse(localStorage.getItem("product") || "[]")
+            Products = JSON.parse(localStorage.getItem("product") || "[]")
 
             let newpro = {
                 idcust: user?.id,
@@ -113,6 +119,11 @@ setTimeout(() => {
     })
 }
     , 1000)
+}
+
+
+
+
 
 
 // Search and Filter Products
@@ -128,4 +139,6 @@ search.addEventListener("input", (e) => {
     console.log("filter :"+filteredProducts)
     DisplayUI(filteredProducts)
 })
+
+
 
