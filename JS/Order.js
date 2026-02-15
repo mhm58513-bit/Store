@@ -1,10 +1,12 @@
 //page orders
+
 // get logged in
 
 let Alog = document.getElementById("Alog")
+
 let cards = document.querySelector(".items")
 
-let Order = JSON.parse(localStorage.getItem("Order") || "[]")
+let Order = JSON.parse(localStorage.getItem("Order"))
 
 let user = JSON.parse(localStorage.getItem("session"))
 
@@ -16,7 +18,7 @@ function User() {
     } else {
         Alog.innerHTML = "Login"
         Alog.href = "./Login.html"
-        localStorage.removeItem("Order")
+        //localStorage.removeItem("Order")
     }
 }
 
@@ -25,18 +27,15 @@ User()
 
 // Get orders
 
+let Products = JSON.parse(localStorage.getItem("product"))
 
 function getProduct() {
-    let Products = JSON.parse(localStorage.getItem("product") || "[}")
     let orderuser = Products.filter((Product) => {
         return Product.idcust === user.id
     })
 
     DisplayUI(orderuser)
 
-    //Order.push(...orderuser)
-
-    //localStorage.setItem("Order", JSON.stringify(Order))
 }
 
 getProduct()
@@ -60,28 +59,49 @@ function DisplayUI(Order) {
     })
 }
 
-//DisplayUI(Order)
-
 
 // Remove order
 
+// cards.addEventListener("click", (e) => {
+
+//     if (e.target.classList.contains("order")) {
+
+//         Order = Order.filter((OrderRemoved) => {
+//             return Number(OrderRemoved.idOrder) !== Number(e.target.dataset.orders) 
+//         })
+
+//         Products = Products.filter((item) => {
+//             return Number(item.idOrder) !== Number(e.target.dataset.orders) 
+//         })
+        
+//         localStorage.setItem("Order", JSON.stringify(Order))
+//         localStorage.setItem("product", JSON.stringify(Products))
+//         DisplayUI(Order)
+//     }
+
+// })
 cards.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("order")) {
-        console.log("dfddsafaf")
-        let IDorder = JSON.parse(localStorage.getItem("Order"))
-        let Products = JSON.parse(localStorage.getItem("product"))
 
-        let OrdersRemoved = IDorder.filter((OrderRemoved) => {
-            return Number(OrderRemoved.idOrder) !== Number(e.target.dataset.orders) 
+        let id = Number(e.target.dataset.orders)
+
+        // احذف من product
+        Products = Products.filter((item) => {
+            return Number(item.idOrder) !== id
         })
 
-        console.log(OrdersRemoved)
-        DisplayUI(OrdersRemoved)
-        localStorage.setItem("Order", JSON.stringify(OrdersRemoved))
-        localStorage.setItem("product", JSON.stringify(OrdersRemoved))
+        // احذف من Order
+        Order = Order.filter((item) => {
+            return Number(item.idOrder) !== id
+        })
 
+        localStorage.setItem("product", JSON.stringify(Products))
+        localStorage.setItem("Order", JSON.stringify(Order))
 
+        // اعرض المنتجات الخاصة باليوزر تاني
+        getProduct()
     }
 
 })
+

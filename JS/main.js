@@ -62,22 +62,15 @@ function DisplayUI(Products) {
 let Alog = document.getElementById("Alog")
 let user = JSON.parse(localStorage.getItem("session"))
 let CountShopIcon = document.getElementById("count")
-let Order = JSON.parse(localStorage.getItem("Order"))
+let Orders = JSON.parse(localStorage.getItem("Order") || "[]")
 
 function User() {
     if (user) {
         Alog.innerHTML = "Hi " + user.name
-
-        if (Order) {
-            CountShopIcon.textContent = Order.length++
-        } else {
-            CountShopIcon.textContent = 0
-        }
-
         Alog.href = "./Login/profile.html"
+        CountShopIcon.textContent = Number(Orders.length)
     } else {
         CountShopIcon.textContent = 0
-
         Alog.href = "./Login.html"
     }
 }
@@ -88,16 +81,15 @@ User()
 // Order Products
 
 let ProductsLS = JSON.parse(localStorage.getItem("product") || "[]")
+
+
 function clicked(Products) {
-    setTimeout(() => {
+
     let btnbuy = document.querySelectorAll(".btnbuy")
 
     btnbuy.forEach((btn) => {
         btn.addEventListener("click", () => {
-
-
-            
-
+            CountShopIcon.textContent = Number(Orders.length)
             let newpro = {
                 idcust: user?.id,
                 idOrder: btn.dataset.id,
@@ -107,18 +99,17 @@ function clicked(Products) {
                 price: btn.dataset.price,
             }
 
-            Products.push(newpro)
-
-            localStorage.setItem("product", JSON.stringify(Products))
-            let Order = JSON.parse(localStorage.getItem("Order") || "[]")
-            Order.push(Products)  
-            localStorage.setItem("Order", JSON.stringify(Order))
-            CountShopIcon.textContent = Number(Order.length++)
+            ProductsLS.push(newpro)
+            Orders.push(ProductsLS)
+            
+            localStorage.setItem("product", JSON.stringify(ProductsLS))  
+            localStorage.setItem("Order", JSON.stringify(Orders))
+            
         })
 
     })
-}
-    , 1000)
+
+
 }
 
 
@@ -129,11 +120,10 @@ let search = document.getElementById("Search")
 
 search.addEventListener("input", (e) => {
     let ValueSearch = e.target.value.toLowerCase()
-    console.log(ValueSearch)
+    
     let filteredProducts = Products.filter((Product) => {
         return Product.title.toLowerCase().includes(ValueSearch)
     })
-    console.log("filter :"+filteredProducts)
     
     DisplayUI(filteredProducts)
 })
