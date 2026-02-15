@@ -110,7 +110,9 @@ function clicked(Products) {
             Products.push(newpro)
 
             localStorage.setItem("product", JSON.stringify(Products))
-            
+            let Order = JSON.parse(localStorage.getItem("Order") || "[]")
+            Order.push(Products)  
+            localStorage.setItem("Order", JSON.stringify(Order))
             CountShopIcon.textContent = Number(Order.length++)
         })
 

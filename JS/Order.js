@@ -1,4 +1,4 @@
-//pade orders
+//page orders
 // get logged in
 
 let Alog = document.getElementById("Alog")
@@ -25,17 +25,18 @@ User()
 
 // Get orders
 
-let Products = JSON.parse(localStorage.getItem("product") || "[}")
 
 function getProduct() {
-
+    let Products = JSON.parse(localStorage.getItem("product") || "[}")
     let orderuser = Products.filter((Product) => {
         return Product.idcust === user.id
     })
 
-    Order.push(...orderuser)
+    DisplayUI(orderuser)
 
-    localStorage.setItem("Order", JSON.stringify(Order))
+    //Order.push(...orderuser)
+
+    //localStorage.setItem("Order", JSON.stringify(Order))
 }
 
 getProduct()
@@ -59,7 +60,7 @@ function DisplayUI(Order) {
     })
 }
 
-DisplayUI(Order)
+//DisplayUI(Order)
 
 
 // Remove order
