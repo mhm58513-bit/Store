@@ -1,13 +1,20 @@
+// =============================
+// Page Home
+// =============================
 
-//Page Home
-
-
-// Get Data From API
-
-let btnBuyNow = document.getElementById("btn")
+// Elements
 let cards = document.querySelector(".items")
+let Spin = document.querySelector(".LoadingDiv")
+let Alog = document.getElementById("Alog")
+let CountShopIcon = document.getElementById("count")
 
+let user = JSON.parse(localStorage.getItem("session")) || null
 let Products = []
+let ProductsLS = JSON.parse(localStorage.getItem("product")) || []
+
+// =============================
+// API
+// =============================
 
 function Api() {
     let xhr = new XMLHttpRequest()
@@ -17,6 +24,9 @@ function Api() {
     xhr.addEventListener("readystatechange", function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             Products = JSON.parse(this.responseText)
+
+            Spin.style.display = "none"
+            cards.style.display = "flex"
             DisplayUI(Products)
         }
     })
@@ -26,21 +36,22 @@ function Api() {
 
 Api()
 
+// =============================
+// Display UI
+// =============================
 
-// display UI Products
-
-
-function DisplayUI(Products) {
+function DisplayUI(products) {
 
     cards.innerHTML = ""
 
-    Products.forEach(Product => {
+    products.forEach(Product => {
         cards.innerHTML += `
             <div class="card">
-                <img src="${Product.image}" alt="${Product.title}" />
+                <img src="${Product.image}" />
                 <h2>${Product.title.substring(0, 20)}</h2>
                 <p>${Product.description.substring(0, 50)}</p>
-                <h3>${Product.price}</h3>
+                <h3>${Product.price} $</h3>
+
                 <button 
                     class="btnbuy"
                     data-id="${Product.id}"
@@ -51,82 +62,115 @@ function DisplayUI(Products) {
                     Buy Now
                 </button>
             </div>
-            `
+        `
     })
-    clicked(ProductsLS)
+
+    addToCart()
 }
 
-
-// user logged
-
-let Alog = document.getElementById("Alog")
-let user = JSON.parse(localStorage.getItem("session"))
-let CountShopIcon = document.getElementById("count")
-let Orders = JSON.parse(localStorage.getItem("Order") || "[]")
+// =============================
+// User
+// =============================
 
 function User() {
     if (user) {
         Alog.innerHTML = "Hi " + user.name
         Alog.href = "./Login/profile.html"
-        CountShopIcon.textContent = Number(Orders.length)
     } else {
-        CountShopIcon.textContent = 0
+        Alog.innerHTML = "Login"
         Alog.href = "./Login.html"
+        CountShopIcon.textContent = 0
     }
 }
 
 User()
 
+// =============================
+// Update Cart Count (TOTAL QUANTITY)
+// =============================
 
-// Order Products
+function updateCartCount() {
 
-let ProductsLS = JSON.parse(localStorage.getItem("product") || "[]")
+    if (!user) {
+        CountShopIcon.textContent = 0
+        return
+    }
 
+    let userProducts = ProductsLS.filter(p => p.idcust === user.id)
 
-function clicked(Products) {
+    let totalQty = 0
+
+    userProducts.forEach(item => {
+        totalQty += item.quantity
+    })
+
+    CountShopIcon.textContent = totalQty
+}
+
+updateCartCount()
+
+// =============================
+// Add To Cart
+// =============================
+
+function addToCart() {
 
     let btnbuy = document.querySelectorAll(".btnbuy")
 
     btnbuy.forEach((btn) => {
+
         btn.addEventListener("click", () => {
-            CountShopIcon.textContent = Number(Orders.length)
-            let newpro = {
-                idcust: user?.id,
-                idOrder: btn.dataset.id,
-                img: btn.dataset.img,
-                title: btn.dataset.title,
-                des: btn.dataset.des,
-                price: btn.dataset.price,
+
+            if (!user) {
+                window.location = "./Login.html"
+                return
             }
 
-            ProductsLS.push(newpro)
-            Orders.push(ProductsLS)
-            
-            localStorage.setItem("product", JSON.stringify(ProductsLS))  
-            localStorage.setItem("Order", JSON.stringify(Orders))
-            
+            let id = Number(btn.dataset.id)
+
+            let exist = ProductsLS.find(item =>
+                item.idOrder == id && item.idcust === user.id
+            )
+
+            if (exist) {
+
+                // لو المنتج موجود نزود الكمية
+                exist.quantity += 1
+
+            } else {
+
+                // لو جديد نضيفه
+                ProductsLS.push({
+                    idcust: user.id,
+                    idOrder: id,
+                    img: btn.dataset.img,
+                    title: btn.dataset.title,
+                    des: btn.dataset.des,
+                    price: Number(btn.dataset.price),
+                    quantity: 1
+                })
+            }
+
+            localStorage.setItem("product", JSON.stringify(ProductsLS))
+
+            updateCartCount()
         })
-
     })
-
-
 }
 
-
-
-// Search and Filter Products
+// =============================
+// Search
+// =============================
 
 let search = document.getElementById("Search")
 
 search.addEventListener("input", (e) => {
-    let ValueSearch = e.target.value.toLowerCase()
-    
+
+    let value = e.target.value.toLowerCase()
+
     let filteredProducts = Products.filter((Product) => {
-        return Product.title.toLowerCase().includes(ValueSearch)
+        return Product.title.toLowerCase().includes(value)
     })
-    
+
     DisplayUI(filteredProducts)
 })
-
-
-

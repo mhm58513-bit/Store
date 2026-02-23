@@ -1,14 +1,18 @@
-//page orders
+// =============================
+// page orders
+// =============================
 
 // get logged in
 
 let Alog = document.getElementById("Alog")
-
 let cards = document.querySelector(".items")
 
-let Order = JSON.parse(localStorage.getItem("Order"))
+let user = JSON.parse(localStorage.getItem("session")) || null
+let Products = JSON.parse(localStorage.getItem("product")) || []
 
-let user = JSON.parse(localStorage.getItem("session"))
+// =============================
+// Check User
+// =============================
 
 function User() {
 
@@ -18,90 +22,115 @@ function User() {
     } else {
         Alog.innerHTML = "Login"
         Alog.href = "./Login.html"
-        //localStorage.removeItem("Order")
     }
 }
 
 User()
 
+// =============================
+// Remove Repeat Orders + Add Quantity
+// =============================
 
-// Get orders
+function RemoveRepeatOrder() {
 
-let Products = JSON.parse(localStorage.getItem("product"))
+    if (!user) return
+
+    let userProducts = Products.filter(item => item.idcust === user.id)
+
+    let cleanProducts = []
+
+    userProducts.forEach((item) => {
+
+        let exist = cleanProducts.find(p => p.idOrder === item.idOrder)
+
+        if (exist) {
+            exist.quantity += 1
+        } else {
+            cleanProducts.push({
+                ...item,
+                quantity: item.quantity ? item.quantity : 1
+            })
+        }
+
+    })
+
+    // نحذف منتجات اليوزر القديمة
+    Products = Products.filter(item => item.idcust !== user.id)
+
+    // نضيف النسخة النظيفة
+    Products = [...Products, ...cleanProducts]
+
+    localStorage.setItem("product", JSON.stringify(Products))
+}
+
+RemoveRepeatOrder()
+
+// =============================
+// Get User Orders
+// =============================
 
 function getProduct() {
+
+    if (!user) return
+
     let orderuser = Products.filter((Product) => {
         return Product.idcust === user.id
     })
 
     DisplayUI(orderuser)
-
 }
 
 getProduct()
 
+// =============================
 // Create Display UI
+// =============================
 
 function DisplayUI(Order) {
 
     cards.innerHTML = ""
 
+    if (Order.length === 0) {
+        cards.innerHTML = "<h2>No Orders Yet</h2>"
+        return
+    }
+
     Order.forEach((item) => {
+
         cards.innerHTML += `
             <div class="card">
                 <img src="${item.img}" alt="${item.title}" />
                 <h2>${item.title.substring(0, 20)}</h2>
                 <p>${item.des.substring(0, 50)}</p>
-                <h3>${item.price}</h3> 
-                <button class="order" data-orders="${item.idOrder}">Remove Order</button>
+
+                <h3>Price: ${item.price}</h3> 
+                <h3>Quantity: ${item.quantity}</h3>
+                <h3>Total: ${item.price * item.quantity}</h3>
+
+                <button class="order" data-orders="${item.idOrder}">
+                    Remove Order
+                </button>
             </div>
-            `
+        `
     })
 }
 
+// =============================
+// Remove Order
+// =============================
 
-// Remove order
-
-// cards.addEventListener("click", (e) => {
-
-//     if (e.target.classList.contains("order")) {
-
-//         Order = Order.filter((OrderRemoved) => {
-//             return Number(OrderRemoved.idOrder) !== Number(e.target.dataset.orders) 
-//         })
-
-//         Products = Products.filter((item) => {
-//             return Number(item.idOrder) !== Number(e.target.dataset.orders) 
-//         })
-        
-//         localStorage.setItem("Order", JSON.stringify(Order))
-//         localStorage.setItem("product", JSON.stringify(Products))
-//         DisplayUI(Order)
-//     }
-
-// })
 cards.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("order")) {
 
         let id = Number(e.target.dataset.orders)
 
-        // احذف من product
         Products = Products.filter((item) => {
-            return Number(item.idOrder) !== id
-        })
-
-        // احذف من Order
-        Order = Order.filter((item) => {
-            return Number(item.idOrder) !== id
+            return !(Number(item.idOrder) === id && item.idcust === user.id)
         })
 
         localStorage.setItem("product", JSON.stringify(Products))
-        localStorage.setItem("Order", JSON.stringify(Order))
 
-        // اعرض المنتجات الخاصة باليوزر تاني
         getProduct()
     }
-
 })
-
